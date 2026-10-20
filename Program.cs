@@ -58,10 +58,10 @@ namespace SensorsTransit
         {
             Random rnd = new Random();
 
-            for (int i = 0; i < NumSensors; i++)
+            Parallel.For(0, NumSensors, delegate (int i)
             {
                 Sensors.Add(new Sensor(i, rnd.Next(0, 100)));
-            }
+            });
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible utilitzant mètodes de programació en paral·lel com Parallel.For
