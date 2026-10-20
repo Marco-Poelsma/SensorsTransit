@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
+
 namespace SensorsTransit
 {
     //Classe que implementa la informació d'un sol sensor
