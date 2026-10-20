@@ -84,11 +84,11 @@ namespace SensorsTransit
         {
             string Missatge;
 
-            for (int i = 0; i < NumSensors; i++)
+            Parallel.For (0, NumSensors-1, delegate(int i)
             {
                 Missatge = "Sensor nº " + SensorsLocal[i].IdSensor + " --- " + SensorsLocal[i].NumVehicles + " vehicles comptabilitzats.";
                 Mostra(Missatge);
-            }
+            });
         }
 
         //No cal optimitzar aquest mètode, només és per comprovar que s'han ordenat bé les dades
