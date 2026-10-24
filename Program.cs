@@ -248,18 +248,24 @@ namespace SensorsTransit
 
             SensorsBCN.MostraDadesSensors();
 
-
+            Thread t1 = new Thread(SensorsBCN.CalcularMitjana);
             Console.WriteLine("Calculant mitjana");
-            SensorsBCN.CalcularMitjana();
+            t1.Start();
             Console.WriteLine("Mitjana vehicles: {0}", SensorsBCN.MitjanaVehicles);
 
-
+            Thread t2 = new Thread(SensorsBCN.CalcularMaxVehicles);
             Console.WriteLine("Calculant vehicles max");
-            SensorsBCN.CalcularMaxVehicles();
+            t2.Start();
             Console.WriteLine("Max vehicles: {0}", SensorsBCN.MaxVehicles);
 
+            Thread t3 = new Thread(SensorsBCN.OrdenaVehicles);
             Console.WriteLine("Ordenant vehicles");
-            SensorsBCN.OrdenaVehicles();
+            t3.Start();
+
+            t1.Join();
+            t2.Join();
+            t3.Join();
+
             SensorsBCN.MostraDadesOrdenades();
 
             Console.WriteLine("Resetejant sensors");
