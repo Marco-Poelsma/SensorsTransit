@@ -267,6 +267,7 @@ namespace SensorsTransit
             DateTime T2 = DateTime.Now;
             TimeSpan Diff = TimeSpan.FromTicks(T2.Ticks - T1.Ticks);
             Console.WriteLine("Tot el procés ha trigat {0}", Diff.ToString());
+            //jiji
         }
     }
 }
