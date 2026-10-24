@@ -154,7 +154,7 @@ namespace SensorsTransit
             for (int i = 0; i < NumSensors - 1; i++)
             {
                 MaxVehicles = MesGran(MaxVehicles, SensorsLocal[i]);
-            }
+            }//jiji
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible
