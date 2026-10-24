@@ -180,7 +180,7 @@ namespace SensorsTransit
                         SensorsLocalOrd[i] = SensorsLocalOrd[i + 1];
                         SensorsLocalOrd[i + 1] = aux;
                         canvi = true;
-                    }
+                    }//jeje
                 }
             }
         }
