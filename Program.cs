@@ -150,11 +150,14 @@ namespace SensorsTransit
         public void CalcularMaxVehicles()
         {
             MaxVehicles = 0;
-
-            for (int i = 0; i < NumSensors - 1; i++)
+            object locker = new object();
+            Parallel.For(0, NumSensors, delegate (int i)
             {
-                MaxVehicles = MesGran(MaxVehicles, SensorsLocal[i]);
-            }
+                lock (locker)
+                {
+                    MaxVehicles = MesGran(MaxVehicles, SensorsLocal[i]);
+                }
+            });
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible
