@@ -120,6 +120,7 @@ namespace SensorsTransit
                 Sensors[i].Connecta();
                 Sensors[i].Reset();
             }
+            //hehe
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible
