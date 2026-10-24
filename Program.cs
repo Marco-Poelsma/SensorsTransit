@@ -115,11 +115,15 @@ namespace SensorsTransit
         /// </summary>
         public void ResetSensors()
         {
-            for (int i = 0; i < NumSensors; i++)
+            object locker = new object();
+            Parallel.For(0, NumSensors, delegate (int i)
             {
                 Sensors[i].Connecta();
-                Sensors[i].Reset();
-            }
+                lock (locker)
+                {
+                    Sensors[i].Reset();
+                }
+            });
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible
