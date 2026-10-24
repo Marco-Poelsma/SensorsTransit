@@ -132,10 +132,13 @@ namespace SensorsTransit
         /// </summary>
         public void CalcularMitjana()
         {
-            for (int i = 0; i < NumSensors; i++)
+            object locker = new object();
+            Parallel.For(0, NumSensors, delegate (int i)
             {
-                SumaVehicles = Suma(SumaVehicles, SensorsLocal[i]);
-            }
+                lock (locker) {
+                    SumaVehicles = Suma(SumaVehicles, SensorsLocal[i]);
+                }
+            });
             MitjanaVehicles = SumaVehicles / NumSensors;
             //hehe
         }
