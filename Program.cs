@@ -7,9 +7,11 @@ using System.Threading;
 
 namespace SensorsTransit
 {
+
     //Classe que implementa la informació d'un sol sensor
     public class Sensor
     {
+
         public int IdSensor { get; set; }
         public int NumVehicles { get; set; }
 
@@ -58,10 +60,10 @@ namespace SensorsTransit
         {
             Random rnd = new Random();
 
-            Parallel.For(0, NumSensors, delegate (int i)
+            for (int i = 0; i < NumSensors; i++)
             {
                 Sensors.Add(new Sensor(i, rnd.Next(0, 100)));
-            });
+            }
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible utilitzant mètodes de programació en paral·lel com Parallel.For
@@ -70,10 +72,15 @@ namespace SensorsTransit
         /// </summary>
         public void RebreDadesSensors()
         {
-            for (int i = 0; i < NumSensors; i++)
+            object locker = new object();
+
+            Parallel.For(0, NumSensors, delegate (int i)
             {
-                SensorsLocal.Add(Sensors[i].EnviaDadesCentral());
-            }
+                lock (locker)
+                {
+                    SensorsLocal.Add(Sensors[i].EnviaDadesCentral());
+                }
+            });
         }
 
         //TASCA A FER: Cal optimitzar aquest mètode, si és possible utilitzant mètodes de programació en paral·lel, concretamen el Parallel.For
@@ -83,9 +90,10 @@ namespace SensorsTransit
         public void MostraDadesSensors()
         {
             string Missatge;
-
-            Parallel.For (0, NumSensors-1, delegate(int i)
+            object locker = new object();
+            Parallel.For(0, NumSensors, delegate (int i)
             {
+
                 Missatge = "Sensor nº " + SensorsLocal[i].IdSensor + " --- " + SensorsLocal[i].NumVehicles + " vehicles comptabilitzats.";
                 Mostra(Missatge);
             });
@@ -210,6 +218,7 @@ namespace SensorsTransit
 
     class Program
     {
+        public static readonly object locker = new object();
         //TASCA A FER: Intenta utilitza els fils per tal de cridar en paral·lel els mètodes que ho permetin. 
         static void Main(string[] args)
         {
@@ -243,8 +252,6 @@ namespace SensorsTransit
             DateTime T2 = DateTime.Now;
             TimeSpan Diff = TimeSpan.FromTicks(T2.Ticks - T1.Ticks);
             Console.WriteLine("Tot el procés ha trigat {0}", Diff.ToString());
-
-            Console.ReadLine();
         }
     }
 }
