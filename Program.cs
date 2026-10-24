@@ -171,17 +171,21 @@ namespace SensorsTransit
             SensorsLocalOrd = SensorsLocal;
             while (canvi)
             {
+                object locker = new object();
                 canvi = false;
-                for (int i = 0; i < NumSensors - 1; i++)
+                Parallel.For(0, NumSensors-1, delegate (int i)
                 {
                     if (EstanOrdenats(SensorsLocalOrd[i], SensorsLocalOrd[i + 1]))
                     {
-                        aux = SensorsLocalOrd[i];
-                        SensorsLocalOrd[i] = SensorsLocalOrd[i + 1];
-                        SensorsLocalOrd[i + 1] = aux;
-                        canvi = true;
+                        lock (locker)
+                        {
+                            aux = SensorsLocalOrd[i];
+                            SensorsLocalOrd[i] = SensorsLocalOrd[i + 1];
+                            SensorsLocalOrd[i + 1] = aux;
+                            canvi = true;
+                        }
                     }
-                }
+                });
             }
         }
 
