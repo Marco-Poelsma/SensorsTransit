@@ -89,6 +89,7 @@ namespace SensorsTransit
             {
                 Missatge = "Sensor nº " + SensorsLocal[i].IdSensor + " --- " + SensorsLocal[i].NumVehicles + " vehicles comptabilitzats.";
                 Mostra(Missatge);
+                //a
             }
         }
 
