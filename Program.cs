@@ -137,6 +137,7 @@ namespace SensorsTransit
                 SumaVehicles = Suma(SumaVehicles, SensorsLocal[i]);
             }
             MitjanaVehicles = SumaVehicles / NumSensors;
+            //hehe
         }
 
         //TASCA A FER: Optimitzar aquest mètode si és possible
